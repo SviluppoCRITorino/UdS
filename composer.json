@@ -1,0 +1,14 @@
+{  
+  "require": {
+    "nyholm/psr7": "^1",
+    "nyholm/psr7-server": "^1",
+    "slim/slim": "^4",
+    "php-di/php-di": "^7.0",
+    "selective/basepath": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}

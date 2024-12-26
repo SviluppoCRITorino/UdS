@@ -4,11 +4,14 @@
     "nyholm/psr7-server": "^1",
     "slim/slim": "^4",
     "php-di/php-di": "^7.0",
-    "selective/basepath": "*"
+    "selective/basepath": "*",
+    "slim/psr7": "^1.7"
   },
   "autoload": {
     "psr-4": {
-      "App\\": "src/"
+      "App\\": "src/",
+      "Controllers\\": "src/Controllers/",
+       "Services\\": "src/Services/"
     }
   }
 }

@@ -23,7 +23,7 @@ USE `uds_devel` ;
 CREATE TABLE IF NOT EXISTS `uds_devel`.`Materiale` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `Nome` VARCHAR(45) NOT NULL COMMENT 'Nome del materiale',
-  `desrizione` VARCHAR(100) NULL COMMENT 'Testo descrittivo del materiale',
+  `descrizione` VARCHAR(100) NULL COMMENT 'Testo descrittivo del materiale',
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

@@ -7,6 +7,9 @@ use Controllers\BackPackController;
 use Services\MaterialService;
 use Controllers\MaterialController;
 
+use Services\ItineraryService;
+use Controllers\ItineraryController;
+
 return [
     'db' => function (ContainerInterface $c) {
         $settings = $c->get('settings')['db'];
@@ -31,5 +34,13 @@ return [
 
     MaterialController::class => function (ContainerInterface $c) {
         return new MaterialController($c->get(MaterialService::class));
+    },
+
+    ItineraryService::class => function (ContainerInterface $c) {
+        return new ItineraryService($c->get('db'));
+    },
+
+    ItineraryController::class => function (ContainerInterface $c) {
+        return new ItineraryController($c->get(ItineraryService::class));
     },
 ];

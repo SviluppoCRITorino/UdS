@@ -43,11 +43,17 @@ ENGINE = InnoDB;
 -- Table `uds_devel`.`Tappa`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `uds_devel`.`Tappa` (
-  `idTappa` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `Tappa` VARCHAR(45) NOT NULL COMMENT 'Nome della tappa',
   `Indirizzo` VARCHAR(200) NOT NULL COMMENT 'Indirizzo della tappa',
   `Note` TEXT NULL COMMENT 'Note generali sulla tappa',
-  PRIMARY KEY (`idTappa`))
+  `id_percorso` INT NOT NULL COMMENT 'Id del percorso a cui appartiene la tappa',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_Percorso_Tappa`
+    FOREIGN KEY (`id_percorso`)
+    REFERENCES `uds_devel`.`percorso` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -55,17 +61,10 @@ ENGINE = InnoDB;
 -- Table `uds_devel`.`Percorso`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `uds_devel`.`Percorso` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `Percorso` VARCHAR(45) NOT NULL COMMENT 'Nome del percorso',
   `Descrizione` VARCHAR(100) NULL COMMENT 'Testo di descrizione del percorso',
-  `Tappa_idTappa` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_Percorso_Tappa_idx` (`Tappa_idTappa` ASC) VISIBLE,
-  CONSTRAINT `fk_Percorso_Tappa`
-    FOREIGN KEY (`Tappa_idTappa`)
-    REFERENCES `uds_devel`.`Tappa` (`idTappa`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 

@@ -4,6 +4,7 @@ use Slim\App;
 use Controllers\BackPackController;
 use Controllers\MaterialController;
 use Controllers\ItineraryController;
+use Controllers\StepController;
 
 return function (App $app) {
 
@@ -24,6 +25,12 @@ return function (App $app) {
     $app->post('/itinerary', [ItineraryController::class, 'createItinerary']);
     $app->put('/itinerary/{id}', [ItineraryController::class, 'updateItinerary']);
     $app->delete('/itinerary/{id}', [ItineraryController::class, 'deleteItinerary']);
+
+    //Tappa
+    $app->get('/step/{itineraryId}', [StepController::class, 'getStepsByItineraryId']);
+    $app->post('/step/{itineraryId}', [StepController::class, 'createStepByItineraryId']);
+    $app->put('/step/{id}', [StepController::class, 'updateStep']);
+    $app->delete('/step/{id}', [StepController::class, 'deleteStep']);
 
 
 };

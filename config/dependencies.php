@@ -10,6 +10,9 @@ use Controllers\MaterialController;
 use Services\ItineraryService;
 use Controllers\ItineraryController;
 
+use Services\StepService;
+use Controllers\StepController;
+
 return [
     'db' => function (ContainerInterface $c) {
         $settings = $c->get('settings')['db'];
@@ -42,5 +45,13 @@ return [
 
     ItineraryController::class => function (ContainerInterface $c) {
         return new ItineraryController($c->get(ItineraryService::class));
+    },
+
+    StepService::class => function (ContainerInterface $c) {
+        return new StepService($c->get('db'));
+    },
+
+    StepController::class => function (ContainerInterface $c) {
+        return new StepController($c->get(StepService::class));
     },
 ];

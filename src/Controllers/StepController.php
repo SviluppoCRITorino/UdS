@@ -13,9 +13,9 @@ class StepController{
         $this->stepService = $stepService;
     }
 
-    public function getStepsByItineraryId(Response $response, array $args): Response {
+    public function getStepsByItineraryId(Request $request, Response $response, array $args): Response {
         $itineraryId = $args['itineraryId'];
-        $steps = $this->stepService->getStepsByItineraryId(itineraryId);
+        $steps = $this->stepService->getStepsByItineraryId($itineraryId);
         $response->getBody()->write(json_encode($steps));
         return $response->withHeader('Content-Type', 'application/json');
     }

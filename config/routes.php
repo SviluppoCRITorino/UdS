@@ -5,6 +5,8 @@ use Controllers\BackPackController;
 use Controllers\MaterialController;
 use Controllers\ItineraryController;
 use Controllers\StepController;
+use Controllers\ProfileController;
+use Controllers\ComitatoController;
 
 return function (App $app) {
 
@@ -31,6 +33,19 @@ return function (App $app) {
     $app->post('/step/{itineraryId}', [StepController::class, 'createStepByItineraryId']);
     $app->put('/step/{id}', [StepController::class, 'updateStep']);
     $app->delete('/step/{id}', [StepController::class, 'deleteStep']);
+
+    //Profilo
+    $app->get('/profile', [ProfileController::class, 'getProfiles']);
+    $app->post('/profile', [ProfileController::class, 'createProfile']);
+    $app->put('/profile/{id}', [ProfileController::class, 'updateProfile']);
+    $app->delete('/profile/{id}', [ProfileController::class, 'deleteProfile']);
+
+    //comitato
+    $app->get('/comitato', [ComitatoController::class, 'getComitati']);
+    $app->get('/comitato/{profileId}', [ComitatoController::class, 'getComitatiByProfile']);
+    $app->post('/comitato', [ComitatoController::class, 'createComitato']);
+    $app->put('/comitato/{id}', [ComitatoController::class, 'updateComitato']);
+    $app->delete('/comitato/{id}', [ComitatoController::class, 'deleteComitato']);
 
 
 };

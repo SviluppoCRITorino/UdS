@@ -150,6 +150,39 @@ CREATE TABLE IF NOT EXISTS `uds_devel`.`MaterialeDistribuito` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `uds_devel`.`Profilo`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `uds_devel`.`Profilo` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL COMMENT 'Nome profilo',
+  `dati_iniziali` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Indica se il comitato associato a questo profilo deve raccogliere i dati iniziali',
+  `check_zaino` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Indica se il comitato associato deve effettuare il check dello zaino',
+  `check_materiale` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Indica se il comitato associato deve effettuare il check del materiale nella cassetta',
+  `percorso` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Indica se il comitato associato compilarei dati del percorso effettuato',
+  `dati_finali` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Indica se il comitato associato deve raccogliere i dati finali',
+  `chilometri_percorsi` TINYINT(1) NOT NULL DEFAULT 1 COMMENT 'Indica se il comitato associato deve indicare i chilomentri percorsi',
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `uds_devel`.`Comitato`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `uds_devel`.`Comitato` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NOT NULL COMMENT 'Nome comitato',
+  `descrizione` VARCHAR(200) NULL COMMENT 'Descrizione',
+  `id_profilo` INT NOT NULL COMMENT 'Id del profilo associato',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_comitato_profilo`
+    FOREIGN KEY (`id_profilo`)
+    REFERENCES `uds_devel`.`profilo` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

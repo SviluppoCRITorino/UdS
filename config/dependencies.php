@@ -13,6 +13,12 @@ use Controllers\ItineraryController;
 use Services\StepService;
 use Controllers\StepController;
 
+use Services\ProfileService;
+use Controllers\ProfileController;
+
+use Services\ComitatoService;
+use Controllers\ComitatoController;
+
 return [
     'db' => function (ContainerInterface $c) {
         $settings = $c->get('settings')['db'];
@@ -53,5 +59,21 @@ return [
 
     StepController::class => function (ContainerInterface $c) {
         return new StepController($c->get(StepService::class));
+    },
+
+    ProfileService::class => function (ContainerInterface $c) {
+        return new ProfileService($c->get('db'));
+    },
+
+    ProfileController::class => function (ContainerInterface $c) {
+        return new ProfileController($c->get(ProfileService::class));
+    },
+
+    ComitatoService::class => function (ContainerInterface $c) {
+        return new ComitatoService($c->get('db'));
+    },
+
+    ComitatoController::class => function (ContainerInterface $c) {
+        return new ComitatoController($c->get(ComitatoService::class));
     },
 ];

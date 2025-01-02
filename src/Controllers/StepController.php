@@ -9,7 +9,7 @@ class StepController{
 
     private $stepService;
 
-    public function __construct(stepService $stepService) {
+    public function __construct(StepService $stepService) {
         $this->stepService = $stepService;
     }
 

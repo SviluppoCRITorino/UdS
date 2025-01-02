@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UDS - Diario di Bordo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="central-card p-4">
+        <h1 class="text-center mb-4">Diario di Bordo</h1>
+        <p class="text-center">Raccolta dati iniziale</p>
+        <form>
+            <div class="text-center mb-3">
+                <select class="form-select" aria-label="Default select example" id="selectPercorso">
+                    <option selected>Seleziona il percorso...</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Cognome Compilatore" id="nomeCompilatore">
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Nome Compilatore" id="cognomeCompilatore">
+            </div>
+            <div class="mb-3">
+                <select class="form-select" aria-label="Default select example" id="selectComitato">
+                    <option selected>Seleziona il comitato di appertenenza</option>
+                </select>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Invia</button>
+            </div>
+           
+        </form>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+</html>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchInitialData();
+    });
+
+async function fetchInitialData(){
+    try {
+        const response = await axios.get('/itinerary');
+        const selectItinerary = document.getElementById('selectPercorso');
+
+        console.log(response.data)
+
+        response.data.forEach(element => {
+            selectItinerary.options[selectItinerary.options.length] = new Option(element.percorso, element.id);
+
+        });
+
+    } catch (error) {
+        console.error('Errore nel caricamento dei dati:', error);
+    }
+}
+</script>

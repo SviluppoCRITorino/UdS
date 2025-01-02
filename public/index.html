@@ -48,15 +48,22 @@
 
 async function fetchInitialData(){
     try {
-        const response = await axios.get('/itinerary');
+        const percorsi = await axios.get('/itinerary');
         const selectItinerary = document.getElementById('selectPercorso');
+        const selectComitato = document.getElementById('selectComitato');
 
-        console.log(response.data)
+        const comitati = await axios.get('/comitato');
 
-        response.data.forEach(element => {
+        percorsi.data.forEach(element => {
             selectItinerary.options[selectItinerary.options.length] = new Option(element.percorso, element.id);
 
         });
+
+        comitati.data.forEach(element => {
+            selectComitato.options[selectComitato.options.length] = new Option(element.nome, element.id);
+        });
+
+
 
     } catch (error) {
         console.error('Errore nel caricamento dei dati:', error);

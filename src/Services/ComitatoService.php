@@ -11,7 +11,7 @@ class ComitatoService {
     }
 
     public function getComitati(): array {
-        $stmt = $this->db->prepare("SELECT * FROM comitato");
+        $stmt = $this->db->query("SELECT * FROM comitato");
         return $stmt->fetchAll();
     }
 

@@ -75,13 +75,18 @@ CREATE TABLE IF NOT EXISTS `uds_devel`.`Missione` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `Compilatore` VARCHAR(100) NOT NULL COMMENT 'Nome del compilatore',
   `Telefono` VARCHAR(15) NOT NULL COMMENT 'Numero di telefono del compilatore',
-  `Comitato` VARCHAR(45) NOT NULL COMMENT 'Comitato di appartenenza del compilatore',
+  `Id_Comitato` INT NOT NULL COMMENT 'Comitato di appartenenza del compilatore',
   `Note` TEXT NULL COMMENT 'Note del compilatore per responsabile esempio materiale mancante)',
-  `Percorso_id` INT NOT NULL,
+  `id_percorso` INT NOT NULL,
+  `data_inizio` DATETIME NULL,
+  `data_fine` DATETIME NULL,
+  `check_zaino` VARCHAR(5) NULL COMMENT 'OK se lo zaino ha tutto, KO se manca qualche elemento',
+  `check_materiali`  VARCHAR(5) NULL COMMENT 'OK se la cassetta ha tutto il materiale, KO se manca qualcosa',
+  `km_totali` INT NULL COMMENT 'chilometri percorsi'
   PRIMARY KEY (`id`),
   INDEX `fk_Missione_Percorso1_idx` (`Percorso_id` ASC) VISIBLE,
   CONSTRAINT `fk_Missione_Percorso1`
-    FOREIGN KEY (`Percorso_id`)
+    FOREIGN KEY (`id_percorso`)
     REFERENCES `uds_devel`.`Percorso` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

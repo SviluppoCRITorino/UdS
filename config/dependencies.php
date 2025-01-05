@@ -19,6 +19,9 @@ use Controllers\ProfileController;
 use Services\ComitatoService;
 use Controllers\ComitatoController;
 
+use Services\MissionService;
+use Controllers\MissionController;
+
 return [
     'db' => function (ContainerInterface $c) {
         $settings = $c->get('settings')['db'];
@@ -75,5 +78,13 @@ return [
 
     ComitatoController::class => function (ContainerInterface $c) {
         return new ComitatoController($c->get(ComitatoService::class));
+    },
+
+    MissionService::class => function (ContainerInterface $c) {
+        return new MissionService($c->get('db'));
+    },
+
+    MissionController::class => function (ContainerInterface $c) {
+        return new MissionController($c->get(MissionService::class));
     },
 ];

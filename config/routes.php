@@ -7,6 +7,7 @@ use Controllers\ItineraryController;
 use Controllers\StepController;
 use Controllers\ProfileController;
 use Controllers\ComitatoController;
+use Controllers\MissionController;
 
 return function (App $app) {
 
@@ -46,6 +47,12 @@ return function (App $app) {
     $app->post('/comitato', [ComitatoController::class, 'createComitato']);
     $app->put('/comitato/{id}', [ComitatoController::class, 'updateComitato']);
     $app->delete('/comitato/{id}', [ComitatoController::class, 'deleteComitato']);
+
+    //missione
+    $app->get('/mission', [MissionController::class, 'loadExistingMission']);
+    $app->post('/mission', [MissionController::class, 'createMission']);
+    $app->put('/mission/{id}', [MissionController::class, 'updateMission']);
+    $app->put('/mission/{id}/end', [MissionController::class, 'endMission']);
 
 
 };

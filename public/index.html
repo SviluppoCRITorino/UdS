@@ -7,38 +7,79 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="central-card p-4">
         <h1 class="text-center mb-4">Diario di Bordo</h1>
-        <p class="text-center">Raccolta dati iniziale</p>
-        <form>
-            <div class="text-center mb-3">
-                <select class="form-select" aria-label="Default select example" id="selectPercorso">
-                    <option selected>Seleziona il percorso...</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Cognome Compilatore" id="nomeCompilatore">
-            </div>
-            <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Nome Compilatore" id="cognomeCompilatore">
-            </div>
-            <div class="mb-3">
-                <select class="form-select" aria-label="Default select example" id="selectComitato">
-                    <option selected>Seleziona il comitato di appertenenza</option>
-                </select>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary">Invia</button>
-            </div>
-           
-        </form>
-        
-    </div>
+        <div class="btn-group mb-4" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="1" onclick="toggleDiv('raccoltaDatiIniziale')" checked>
+            <label class="btn btn-outline-primary" for="btnradio1">Inizia Nuova Missione</label>
+          
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="2" onclick="toggleDiv('caricaMissioneEsistente')">
+            <label class="btn btn-outline-primary" for="btnradio2">Carica Missione Esistente</label>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <!--RACCOLTA DATI INIZIALE-->
+        <div id="raccoltaDatiIniziale" class="">        
+            <p class="text-center">Raccolta dati iniziale</p>
+            <form class="was-validated">
+                <div class="mb-3">
+                    <select class="form-select" aria-label="Default select example" id="selectPercorso" required>
+                        <option selected disabled value="">Seleziona il percorso...</option>
+                    </select>
+                    <div class="invalid-feedback">Per favore seleziona un percorso valido</div>
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Cognome Compilatore" id="nomeCompilatore" required>
+                    <div class="invalid-feedback">Compila questo campo</div>
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Nome Compilatore" id="cognomeCompilatore" required>
+                    <div class="invalid-feedback">Compila questo campo</div>
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" placeholder="Numero Telefono Compilatore" id="telefono" required>
+                    <div class="invalid-feedback">Compila questo campo</div>
+                </div>
+                <div class="mb-3">
+                    <select class="form-select" aria-label="Default select example" id="selectComitato" required>
+                        <option selected disabled value=""">Seleziona il comitato di appertenenza</option>
+                    </select>
+                    <div class="invalid-feedback">Per favore seleziona un comitato</div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" onclick="startNewMission(event)" class="btn btn-primary">Invia</button>
+                </div>
+            </form>
+        </div>
+        <!--CARICA MISSIONE ESISTENTE-->
+        <div id="caricaMissioneEsistente" class="hidden"> 
+            <p class="text-center">Inserisci i dati di chi ha iniziato la missione che vuoi caricare</p>
+            <form class="was-validated">
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Cognome Compilatore" id="nomeCompilatoreExist" required>
+                    <div class="invalid-feedback">Compila questo campo</div>
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Nome Compilatore" id="cognomeCompilatoreExist" required>
+                    <div class="invalid-feedback">Compila questo campo</div>
+                </div>
+                <div class="mb-3">
+                    <select class="form-select" aria-label="Default select example" id="selectComitatoExist" required>
+                        <option selected disabled value=""">Seleziona il comitato di appertenenza</option>
+                    </select>
+                    <div class="invalid-feedback">Per favore seleziona un comitato</div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" onclick="sendData(event)" class="btn btn-primary">Invia</button>
+                </div>
+                
+
+            </form>
+        </div>
+    </div>
 </body>
 </html>
 <script>
@@ -51,6 +92,7 @@ async function fetchInitialData(){
         const percorsi = await axios.get('/itinerary');
         const selectItinerary = document.getElementById('selectPercorso');
         const selectComitato = document.getElementById('selectComitato');
+        const selectComitatoExist = document.getElementById('selectComitatoExist');
 
         const comitati = await axios.get('/comitato');
 
@@ -61,12 +103,53 @@ async function fetchInitialData(){
 
         comitati.data.forEach(element => {
             selectComitato.options[selectComitato.options.length] = new Option(element.nome, element.id);
+            selectComitatoExist.options[selectComitatoExist.options.length] = new Option(element.nome, element.id);
         });
-
-
 
     } catch (error) {
         console.error('Errore nel caricamento dei dati:', error);
     }
 }
+
+function startNewMission(event) {
+        event.preventDefault();
+
+        const percorso = document.getElementById('selectPercorso').value;
+        const nomeCompilatore = document.getElementById('nomeCompilatore').value;
+        const cognomeCompilatore = document.getElementById('cognomeCompilatore').value;
+        const telefono = document.getElementById('telefono').value;
+        const comitato = document.getElementById('selectComitato').value;
+
+        const formData = {
+            percorso: percorso,
+            nomeCompilatore: nomeCompilatore,
+            cognomeCompilatore: cognomeCompilatore,
+            telefono: telefono,
+            comitato: comitato,
+        };
+
+        console.log(formData); 
+    }
+
+function loadExistingMission(event){
+    event.preventDefault()
+}
+
+function toggleDiv(divId) {
+        // Nascondi entrambi i div
+        document.getElementById('raccoltaDatiIniziale').classList.add('hidden');
+        document.getElementById('caricaMissioneEsistente').classList.add('hidden');
+
+        // Mostra il div selezionato
+        const selectedDiv = document.getElementById(divId);
+        if (selectedDiv) {
+            selectedDiv.classList.remove('hidden');
+        }
+}
 </script>
+
+<style>
+    .hidden {
+        display: none;
+    }
+</style>

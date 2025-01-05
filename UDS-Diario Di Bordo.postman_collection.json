@@ -645,6 +645,151 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Mission",
+			"item": [
+				{
+					"name": "getExistingMission",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/mission?name=Francesca&surname=Guarino&idComitato=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"mission"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Francesca"
+								},
+								{
+									"key": "surname",
+									"value": "Guarino"
+								},
+								{
+									"key": "idComitato",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getByProfile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/comitato/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"comitato",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Francesca\",\r\n    \"surname\": \"Guarino\",\r\n    \"telephone\": \"392727272722\",\r\n    \"idPercorso\": 1,\r\n    \"idComitato\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/mission",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"mission"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"note\": \"mancano le garze\",\r\n    \"checkZaino\": \"KO\",\r\n    \"checkMateriali\": \"OK\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/mission/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"mission",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "end",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"note\": \"mancano le garze\",\r\n    \"totalKm\": 14\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/mission/3/end",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"mission",
+								"3",
+								"end"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
